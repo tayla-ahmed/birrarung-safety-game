@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Jump</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div id="game">
+    <div id="stage">
+      
+      <!-- Bottom layer: the looping "man bobbing" clip -->
+      <video id="idle" class="layer" src="videos/idle.mp4" poster="images/idle-poster.jpg"
+             muted loop playsinline preload="auto"></video>
+
+      <!-- Drowning Clip - upon failure-->
+      <video id="drown" class="layer" src="videos/drown.mp4" poster="images/idle-poster.jpg"
+             playsinline preload="auto"></video>
+
+      <!-- Idea Clip - given your friend an idea -->
+      <video id="idea" class="layer" src="videos/idea.mp4" poster="images/idle-poster.jpg"
+              playsinline preload="auto"></video>
+
+      <!-- Top layer: the walking intro (has sound) -->
+      <video id="intro" class="layer" src="videos/intro.mp4" poster="images/intro-poster.jpg"
+             playsinline preload="auto"></video>
+
+      <button id="skipBtn">Skip intro</button>
+
+      <div id="startScreen">
+        <p>Your friend is about to do something dumb...</p>
+        <button id="startBtn">Start</button>
+      </div>
+
+    <div id="choices"></div>
+  </div>
+  </div>
+  <div id="speech"></div>
+
+</body>
+</html>

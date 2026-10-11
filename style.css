@@ -1,0 +1,206 @@
+:root {
+    --page-bg: #254234;
+    --panel: rgba(255, 255, 255, 0.94);
+    --text: #1d2a24;
+    --accent: #c5483b;
+    --accent-hover: #c5483b;
+    --font-body: "Trebuchet MS", "Segoe UI", Helvetica, Arial, sans-serif;
+    }
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--page-bg);
+    font-family: var(--font-body);
+    color: var(--text);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0rem;
+}
+
+html, body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+#game { 
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* ---------- Stage (video layers) ---------- */
+#stage {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 10;       /* matches your 1920x1200 videos */
+    overflow: hidden;
+    border-radius: 0px;
+    background: #000;
+    margin-bottom: 0px;
+    }
+
+    .layer {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Smooth video transitions */
+    #idle,
+    #drown,
+    #idea {
+        transition: opacity 0.8s ease;
+    }
+
+/* Hide the drowning video initially */
+#drown, #idea {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Fade out the idle video */
+#idle.gone {
+    opacity: 0;
+}
+
+/* Fade in the drowning video */
+#drown.visible, #idea.visible {
+    opacity: 1;
+}
+
+/* intro sits on top of the idle loop, then fades away */
+#intro { 
+    transition: opacity 0.6s ease;
+}
+#intro.gone {
+    opacity: 0; pointer-events: none;
+}
+
+/* ---------- Speech box ---------- */
+#speech {
+    position: absolute;
+    left: 3vw;
+    right: 3vw;
+    margin-top: 77vh;
+    padding: 1rem 1.25rem;
+    background: var(--panel);
+    border-radius: 14px;
+    font-size: 1.5rem;
+    line-height: 1.4;
+    min-height: 3.2em;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    cursor: pointer;
+    }
+#speech.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ---------- Start overlay ---------- */
+#startScreen {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centre vertically */
+    align-items: center;     /* Centre horizontally */
+    background: #254234;
+    transition: opacity 0.4s ease;
+    text-align: center;
+    gap: 1.5rem;
+}
+
+#startScreen p {
+    font-size: 80px;
+    font-weight: 400;
+    color: #ffffff;
+    text-align: center;
+    margin: 0 15vw;
+}
+
+#startScreen button {
+    display: block;
+    margin: 0 auto;
+}
+
+#startScreen.gone {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* ---------- Buttons ---------- */
+button {
+    font-family: inherit;
+    font-size: 1.5rem;
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+    transition: transform 0.15s ease, background 0.15s ease, opacity 0.4s ease;
+}
+button:active {
+    transform: scale(0.97);
+}
+
+#startBtn {
+    padding: 0.9rem 2.2rem;
+    background: var(--accent);
+    color: #fff;
+    transform: translateY(100px);
+    font-size: 1.5rem;
+}
+
+#startBtn:hover {
+    background: var(--accent-hover);
+}
+
+#skipBtn {
+    position: absolute;
+    top: 5vh;
+    right: 3vw;
+    padding: 0.4rem 0.9rem;
+    font-size: 0.9rem;
+    background: rgba(0, 0, 0, 0.55);
+    color: #fff;
+    display: none;
+}
+
+/* ---------- Choices ---------- */
+#choices {
+    display: grid;
+    gap: 0.6rem;
+    margin-top: 5vh;
+    min-height: 12rem;
+}
+    
+#choices button {
+    text-align: left;
+    margin-left: 67vw;
+    padding: 0.9rem 1.1rem;
+    background: #f4efe6;
+    color: var(--text);
+    opacity: 0;
+    transform: translateY(8px);
+    animation: pop 0.35s ease forwards;
+    width: 30vw;
+}
+#choices button:hover { background: #e7dfcf; transform: translateX(4px); }
+#choices button .num {
+    display: inline-block;
+    width: 1.6rem;
+    font-weight: bold;
+    color: var(--accent);
+    }
+#choices button:nth-child(2) { animation-delay: 0.08s; }
+#choices button:nth-child(3) { animation-delay: 0.16s; }
+
+@keyframes pop { to { opacity: 1; transform: translateY(0); } }
